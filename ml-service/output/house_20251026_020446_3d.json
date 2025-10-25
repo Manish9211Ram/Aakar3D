@@ -1,0 +1,261 @@
+{
+  "objects": [
+    {
+      "name": "Foundation",
+      "type": "box",
+      "position": [
+        0,
+        0,
+        0.1
+      ],
+      "scale": [
+        6,
+        8,
+        0.2
+      ],
+      "color": "#696969",
+      "material": "foundation"
+    },
+    {
+      "name": "Floor_1_Main",
+      "type": "box",
+      "position": [
+        0,
+        0,
+        2.0
+      ],
+      "scale": [
+        6,
+        8,
+        3
+      ],
+      "color": "#F5F5F5",
+      "material": "wall"
+    },
+    {
+      "name": "Floor_2_Main",
+      "type": "box",
+      "position": [
+        0,
+        0,
+        5.0
+      ],
+      "scale": [
+        6,
+        8,
+        3
+      ],
+      "color": "#F5F5F5",
+      "material": "wall"
+    },
+    {
+      "name": "Roof_Main",
+      "type": "box",
+      "position": [
+        0,
+        0,
+        6.6
+      ],
+      "scale": [
+        6.2,
+        8.2,
+        0.2
+      ],
+      "color": "#708090",
+      "material": "roof_modern"
+    },
+    {
+      "name": "Window_Front_0_0",
+      "type": "box",
+      "position": [
+        3.05,
+        -2.6666666666666665,
+        2.7
+      ],
+      "scale": [
+        0.1,
+        1.2,
+        1.2
+      ],
+      "color": "#87CEEB",
+      "material": "window"
+    },
+    {
+      "name": "Window_Front_0_1",
+      "type": "box",
+      "position": [
+        3.05,
+        0.0,
+        2.7
+      ],
+      "scale": [
+        0.1,
+        1.2,
+        1.2
+      ],
+      "color": "#87CEEB",
+      "material": "window"
+    },
+    {
+      "name": "Window_Side_0_0",
+      "type": "box",
+      "position": [
+        0,
+        4.05,
+        2.7
+      ],
+      "scale": [
+        1,
+        0.1,
+        1.2
+      ],
+      "color": "#87CEEB",
+      "material": "window"
+    },
+    {
+      "name": "Window_Side_0_1",
+      "type": "box",
+      "position": [
+        0,
+        4.05,
+        2.7
+      ],
+      "scale": [
+        1,
+        0.1,
+        1.2
+      ],
+      "color": "#87CEEB",
+      "material": "window"
+    },
+    {
+      "name": "Window_Front_1_0",
+      "type": "box",
+      "position": [
+        3.05,
+        -2.6666666666666665,
+        5.7
+      ],
+      "scale": [
+        0.1,
+        1.2,
+        1.2
+      ],
+      "color": "#87CEEB",
+      "material": "window"
+    },
+    {
+      "name": "Window_Front_1_1",
+      "type": "box",
+      "position": [
+        3.05,
+        0.0,
+        5.7
+      ],
+      "scale": [
+        0.1,
+        1.2,
+        1.2
+      ],
+      "color": "#87CEEB",
+      "material": "window"
+    },
+    {
+      "name": "Window_Side_1_0",
+      "type": "box",
+      "position": [
+        0,
+        4.05,
+        5.7
+      ],
+      "scale": [
+        1,
+        0.1,
+        1.2
+      ],
+      "color": "#87CEEB",
+      "material": "window"
+    },
+    {
+      "name": "Window_Side_1_1",
+      "type": "box",
+      "position": [
+        0,
+        4.05,
+        5.7
+      ],
+      "scale": [
+        1,
+        0.1,
+        1.2
+      ],
+      "color": "#87CEEB",
+      "material": "window"
+    },
+    {
+      "name": "Main_Door",
+      "type": "box",
+      "position": [
+        3.05,
+        0,
+        1.2
+      ],
+      "scale": [
+        0.1,
+        1.2,
+        2.4
+      ],
+      "color": "#8B4513",
+      "material": "door"
+    },
+    {
+      "name": "Door_Frame",
+      "type": "box",
+      "position": [
+        3.1,
+        0,
+        1.3
+      ],
+      "scale": [
+        0.2,
+        1.4,
+        2.6
+      ],
+      "color": "#654321",
+      "material": "door_frame"
+    }
+  ],
+  "camera": {
+    "position": [
+      10.8,
+      -12.0,
+      11.5
+    ],
+    "target": [
+      0,
+      0,
+      3.25
+    ]
+  },
+  "lighting": {
+    "sun": {
+      "position": [
+        12,
+        16,
+        16.5
+      ],
+      "intensity": 1.2
+    },
+    "ambient": {
+      "intensity": 0.4
+    }
+  },
+  "metadata": {
+    "style": "modern",
+    "house_type": "bungalow",
+    "floors": 2,
+    "dimensions": "6x8m",
+    "features": [],
+    "total_objects": 14
+  }
+}

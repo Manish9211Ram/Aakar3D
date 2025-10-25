@@ -1,0 +1,27 @@
+{
+  "description": "generate a 3d model for my bedroom",
+  "attributes": {
+    "text": "generate a 3d model for my bedroom",
+    "num_floors": 2,
+    "style": "modern",
+    "house_type": "bungalow",
+    "rooms": [
+      "bedroom"
+    ],
+    "features": [],
+    "dimensions": {
+      "width": 10.0,
+      "length": 12.0,
+      "height": 3.0
+    },
+    "colors": [
+      "white"
+    ]
+  },
+  "generated_at": "2025-10-26T02:00:48.105214",
+  "files": {
+    "script": "house_20251026_020048_script.py",
+    "blend": "house_20251026_020048.blend",
+    "threejs": "house_20251026_020048_3d.json"
+  }
+}

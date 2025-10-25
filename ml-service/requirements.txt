@@ -1,0 +1,53 @@
+# ML Dependencies for Indian House Text-to-Blender Generator
+# Complete AI/ML Pipeline requirements
+
+# Core ML/AI frameworks
+torch>=1.9.0
+torchvision>=0.10.0
+torchaudio>=0.9.0
+transformers>=4.21.0
+sentence-transformers>=2.2.0
+accelerate>=0.12.0
+
+# 3D Processing
+open3d>=0.15.0
+trimesh[easy]>=3.15.0
+pymeshlab>=2022.2
+
+# Computer Vision
+opencv-python-headless>=4.6.0
+Pillow>=9.0.0
+scikit-image>=0.19.0
+
+# Scientific Computing
+numpy>=1.21.0
+scipy>=1.7.0
+scikit-learn>=1.1.0
+matplotlib>=3.5.0
+
+# Blender Integration
+bpy>=3.0.0  # Note: May need special installation
+mathutils>=2.81.0
+fake-bpy-module-latest>=3.0.0  # For IDE support
+
+# Web Framework (for API)
+flask>=2.2.0
+flask-cors>=3.0.10
+requests>=2.28.0
+
+# Utilities
+huggingface_hub>=0.10.0
+gradio>=3.0.0  # Optional for web interface
+
+# Data handling
+pandas>=1.4.0
+tqdm>=4.64.0
+
+# Development tools
+pytest>=7.0.0
+black>=22.0.0
+flake8>=5.0.0
+
+# Additional dependencies for production
+gunicorn>=20.1.0  # For deployment
+python-dotenv>=0.20.0  # For environment variables

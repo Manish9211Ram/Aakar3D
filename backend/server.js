@@ -3,12 +3,16 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const axios = require('axios');
 require('dotenv').config();
 
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: ['http://localhost:3000', 'http://127.0.0.1:3000'],
+  credentials: true
+}));
 app.use(express.json());
 
 // MongoDB Connection
@@ -227,6 +231,183 @@ app.get('/api/profile', authenticateToken, async (req, res) => {
   } catch (error) {
     console.error('Profile error:', error);
     res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// ===== MIDDLEWARE =====
+
+// ML Service Configuration
+const ML_SERVICE_URL = 'http://localhost:5001';
+
+// ===== ML SERVICE ROUTES =====
+
+// ML Health Check
+app.get('/api/ml/health', async (req, res) => {
+  try {
+    const response = await axios.get(`${ML_SERVICE_URL}/health`, {
+      timeout: 5000
+    });
+    
+    res.json({
+      success: true,
+      message: 'ML service is healthy',
+      mlService: response.data
+    });
+  } catch (error) {
+    console.error('ML service health check failed:', error.message);
+    res.status(503).json({
+      success: false,
+      message: 'ML service unavailable',
+      error: error.message
+    });
+  }
+});
+
+// Generate House
+app.post('/api/ml/generate-house', async (req, res) => {
+  try {
+    const { description, style, floors } = req.body;
+    
+    if (!description) {
+      return res.status(400).json({
+        success: false,
+        message: 'House description is required'
+      });
+    }
+    
+    console.log('🏠 Generating house:', description);
+    
+    // Call ML service
+    const response = await axios.post(`${ML_SERVICE_URL}/generate`, {
+      description,
+      style,
+      floors
+    }, {
+      timeout: 60000 // 1 minute timeout
+    });
+    
+    console.log('✅ ML Response:', response.data);
+    
+    if (response.data.success) {
+      res.json({
+        success: true,
+        message: 'House generated successfully',
+        data: response.data.data
+      });
+    } else {
+      res.status(500).json({
+        success: false,
+        message: 'House generation failed',
+        error: response.data.error
+      });
+    }
+    
+  } catch (error) {
+    console.error('❌ House generation error:', error.message);
+    res.status(500).json({
+      success: false,
+      message: 'Server error during house generation',
+      error: error.message
+    });
+  }
+});
+
+// Generate House from Form
+app.post('/api/ml/generate-house-form', async (req, res) => {
+  try {
+    const formData = req.body;
+    
+    console.log('🏗️ Generating house from form data:', formData);
+    
+    // Call ML service with form data
+    const response = await axios.post(`${ML_SERVICE_URL}/generate_house_from_form`, formData, {
+      timeout: 60000 // 1 minute timeout
+    });
+    
+    console.log('✅ ML Form Response:', response.data);
+    
+    if (response.data.success) {
+      res.json({
+        success: true,
+        message: 'House generated successfully from form',
+        data: response.data.data
+      });
+    } else {
+      res.status(500).json({
+        success: false,
+        message: 'House generation from form failed',
+        error: response.data.error
+      });
+    }
+    
+  } catch (error) {
+    console.error('❌ House form generation error:', error.message);
+    res.status(500).json({
+      success: false,
+      message: 'Server error during house form generation',
+      error: error.message
+    });
+  }
+});
+
+// Get Configuration Options for Form
+app.get('/api/ml/config-options', async (req, res) => {
+  try {
+    const response = await axios.get(`${ML_SERVICE_URL}/config_options`);
+    
+    res.json({
+      success: true,
+      data: response.data
+    });
+    
+  } catch (error) {
+    console.error('❌ Config options error:', error.message);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to get configuration options',
+      error: error.message
+    });
+  }
+});
+
+// Get Examples
+app.get('/api/ml/examples', async (req, res) => {
+  try {
+    const response = await axios.get(`${ML_SERVICE_URL}/examples`);
+    
+    res.json({
+      success: true,
+      examples: response.data.examples
+    });
+  } catch (error) {
+    console.error('Failed to fetch examples:', error.message);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to fetch examples',
+      error: error.message
+    });
+  }
+});
+
+// Get Styles
+app.get('/api/ml/styles', async (req, res) => {
+  try {
+    const response = await axios.get(`${ML_SERVICE_URL}/styles`);
+    
+    res.json({
+      success: true,
+      styles: response.data.styles,
+      houseTypes: response.data.house_types,
+      roomTypes: response.data.room_types,
+      features: response.data.features
+    });
+  } catch (error) {
+    console.error('Failed to fetch styles:', error.message);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to fetch architectural styles',
+      error: error.message
+    });
   }
 });
 
