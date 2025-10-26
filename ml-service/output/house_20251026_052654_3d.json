@@ -1,0 +1,160 @@
+{
+  "type": "house_model",
+  "style": "traditional",
+  "attributes": {
+    "style": "traditional",
+    "house_type": "villa",
+    "floors": 2,
+    "size": "medium",
+    "colors": [
+      "red"
+    ],
+    "rooms": [
+      "balcony"
+    ],
+    "features": [
+      "balcony"
+    ],
+    "original_description": "A traditional Kerala house with 2 floors, wooden balcony, and red tile roof"
+  },
+  "objects": [
+    {
+      "type": "box",
+      "dimensions": {
+        "width": 11.480773166329087,
+        "height": 7.587830079669249,
+        "depth": 11.664952127606144
+      },
+      "position": {
+        "x": 0,
+        "y": 3.7939150398346246,
+        "z": 0
+      },
+      "material": "wall",
+      "color": "#DC143C"
+    },
+    {
+      "type": "pyramid",
+      "radius": 8.1654664893243,
+      "height": 2.5,
+      "position": {
+        "x": 0,
+        "y": 8.83783007966925,
+        "z": 0
+      },
+      "material": "roof_traditional",
+      "color": "#DC143C"
+    },
+    {
+      "type": "box",
+      "dimensions": {
+        "width": 1.2,
+        "height": 1.2,
+        "depth": 0.1
+      },
+      "position": {
+        "x": -2.8701932915822717,
+        "y": 2.276349023900775,
+        "z": 5.882476063803072
+      },
+      "material": "window",
+      "color": "#87CEEB"
+    },
+    {
+      "type": "box",
+      "dimensions": {
+        "width": 1.2,
+        "height": 1.2,
+        "depth": 0.1
+      },
+      "position": {
+        "x": 0.0,
+        "y": 2.276349023900775,
+        "z": 5.882476063803072
+      },
+      "material": "window",
+      "color": "#87CEEB"
+    },
+    {
+      "type": "box",
+      "dimensions": {
+        "width": 1.2,
+        "height": 1.2,
+        "depth": 0.1
+      },
+      "position": {
+        "x": 2.8701932915822717,
+        "y": 2.276349023900775,
+        "z": 5.882476063803072
+      },
+      "material": "window",
+      "color": "#87CEEB"
+    },
+    {
+      "type": "box",
+      "dimensions": {
+        "width": 1.2,
+        "height": 1.2,
+        "depth": 0.1
+      },
+      "position": {
+        "x": -2.8701932915822717,
+        "y": 6.070264063735399,
+        "z": 5.882476063803072
+      },
+      "material": "window",
+      "color": "#87CEEB"
+    },
+    {
+      "type": "box",
+      "dimensions": {
+        "width": 1.2,
+        "height": 1.2,
+        "depth": 0.1
+      },
+      "position": {
+        "x": 0.0,
+        "y": 6.070264063735399,
+        "z": 5.882476063803072
+      },
+      "material": "window",
+      "color": "#87CEEB"
+    },
+    {
+      "type": "box",
+      "dimensions": {
+        "width": 1.2,
+        "height": 1.2,
+        "depth": 0.1
+      },
+      "position": {
+        "x": 2.8701932915822717,
+        "y": 6.070264063735399,
+        "z": 5.882476063803072
+      },
+      "material": "window",
+      "color": "#87CEEB"
+    },
+    {
+      "type": "box",
+      "dimensions": {
+        "width": 1.3108783504776353,
+        "height": 2.292519074314094,
+        "depth": 0.1
+      },
+      "position": {
+        "x": 0,
+        "y": 1.146259537157047,
+        "z": 5.882476063803072
+      },
+      "material": "door",
+      "color": "#8B4513"
+    }
+  ],
+  "metadata": {
+    "total_objects": 9,
+    "base_dimensions": "11.5x11.7x7.6",
+    "generation_strategy": "attribute_based_variation",
+    "timestamp": "2025-10-26T05:26:54.466036"
+  }
+}

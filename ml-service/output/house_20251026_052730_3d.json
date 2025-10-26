@@ -1,0 +1,174 @@
+{
+  "type": "house_model",
+  "style": "modern",
+  "attributes": {
+    "style": "modern",
+    "house_type": "bungalow",
+    "floors": 2,
+    "size": "medium",
+    "colors": [
+      "white"
+    ],
+    "rooms": [],
+    "features": [],
+    "original_description": "modern style bungalow 2 floors with white colors"
+  },
+  "objects": [
+    {
+      "type": "box",
+      "dimensions": {
+        "width": 9.60709205129853,
+        "height": 4,
+        "depth": 10.69326350766306
+      },
+      "position": {
+        "x": 0,
+        "y": 3.6039472295333495,
+        "z": 0
+      },
+      "material": "wall",
+      "color": "#FFFFFF"
+    },
+    {
+      "type": "box",
+      "dimensions": {
+        "width": 6.72496443590897,
+        "height": 3.6039472295333495,
+        "depth": 6.415958104597836
+      },
+      "position": {
+        "x": 2.882127615389559,
+        "y": 9.009868073833374,
+        "z": 0
+      },
+      "material": "wall",
+      "color": "#FFFFFF"
+    },
+    {
+      "type": "box",
+      "dimensions": {
+        "width": 10.10709205129853,
+        "height": 0.3,
+        "depth": 11.19326350766306
+      },
+      "position": {
+        "x": 0,
+        "y": 7.357894459066699,
+        "z": 0
+      },
+      "material": "roof_modern",
+      "color": "#708090"
+    },
+    {
+      "type": "box",
+      "dimensions": {
+        "width": 1.2,
+        "height": 1.2,
+        "depth": 0.1
+      },
+      "position": {
+        "x": -2.4017730128246324,
+        "y": 2.1623683377200096,
+        "z": 5.39663175383153
+      },
+      "material": "window",
+      "color": "#87CEEB"
+    },
+    {
+      "type": "box",
+      "dimensions": {
+        "width": 1.2,
+        "height": 1.2,
+        "depth": 0.1
+      },
+      "position": {
+        "x": 0.0,
+        "y": 2.1623683377200096,
+        "z": 5.39663175383153
+      },
+      "material": "window",
+      "color": "#87CEEB"
+    },
+    {
+      "type": "box",
+      "dimensions": {
+        "width": 1.2,
+        "height": 1.2,
+        "depth": 0.1
+      },
+      "position": {
+        "x": 2.4017730128246324,
+        "y": 2.1623683377200096,
+        "z": 5.39663175383153
+      },
+      "material": "window",
+      "color": "#87CEEB"
+    },
+    {
+      "type": "box",
+      "dimensions": {
+        "width": 1.2,
+        "height": 1.2,
+        "depth": 0.1
+      },
+      "position": {
+        "x": -2.4017730128246324,
+        "y": 5.7663155672533595,
+        "z": 5.39663175383153
+      },
+      "material": "window",
+      "color": "#87CEEB"
+    },
+    {
+      "type": "box",
+      "dimensions": {
+        "width": 1.2,
+        "height": 1.2,
+        "depth": 0.1
+      },
+      "position": {
+        "x": 0.0,
+        "y": 5.7663155672533595,
+        "z": 5.39663175383153
+      },
+      "material": "window",
+      "color": "#87CEEB"
+    },
+    {
+      "type": "box",
+      "dimensions": {
+        "width": 1.2,
+        "height": 1.2,
+        "depth": 0.1
+      },
+      "position": {
+        "x": 2.4017730128246324,
+        "y": 5.7663155672533595,
+        "z": 5.39663175383153
+      },
+      "material": "window",
+      "color": "#87CEEB"
+    },
+    {
+      "type": "box",
+      "dimensions": {
+        "width": 1.2836713596334408,
+        "height": 2.4405071240074205,
+        "depth": 0.1
+      },
+      "position": {
+        "x": 0,
+        "y": 1.2202535620037103,
+        "z": 5.39663175383153
+      },
+      "material": "door",
+      "color": "#8B4513"
+    }
+  ],
+  "metadata": {
+    "total_objects": 10,
+    "base_dimensions": "9.6x10.7x7.2",
+    "generation_strategy": "attribute_based_variation",
+    "timestamp": "2025-10-26T05:27:30.979906"
+  }
+}

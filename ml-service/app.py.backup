@@ -1,0 +1,724 @@
+"""
+🏠 AAKAR3D ML SERVICE - PROPER 3D HOUSE GENERATOR
+==================================================
+Advanced ML service for generating 3D Indian house models from text descriptions.
+Includes proper 3D model generation and enhanced visualization.
+"""
+
+from flask import Flask, request, jsonify
+from flask_cors import CORS
+import json
+import logging
+from datetime import datetime
+import os
+import re
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+app = Flask(__name__)
+CORS(app)
+
+# Create output directory
+os.makedirs('output', exist_ok=True)
+
+class ProperHouseGenerator:
+    """Professional House Generator with Real 3D Model Creation"""
+    
+    def __init__(self):
+        self.architectural_styles = {
+            'traditional': {
+                'description': 'Classic Indian architecture with courtyards and verandas',
+                'materials': ['brick', 'stone', 'wood'],
+                'colors': ['terracotta', 'ochre', 'white'],
+                'features': ['courtyard', 'veranda', 'arches']
+            },
+            'kerala': {
+                'description': 'Kerala style with sloped roofs and wooden elements',
+                'materials': ['wood', 'tile', 'laterite'],
+                'colors': ['brown', 'red', 'green'],
+                'features': ['sloped_roof', 'wooden_balcony', 'pillars']
+            },
+            'rajasthani': {
+                'description': 'Rajasthani haveli style with domes and sandstone',
+                'materials': ['sandstone', 'marble', 'wood'],
+                'colors': ['golden', 'pink', 'white'],
+                'features': ['dome', 'jharokha', 'courtyard']
+            },
+            'modern': {
+                'description': 'Contemporary style with glass and steel',
+                'materials': ['glass', 'steel', 'concrete'],
+                'colors': ['white', 'grey', 'black'],
+                'features': ['large_windows', 'flat_roof', 'balcony']
+            },
+            'colonial': {
+                'description': 'Colonial architecture with high ceilings',
+                'materials': ['stone', 'wood', 'plaster'],
+                'colors': ['white', 'cream', 'beige'],
+                'features': ['high_ceiling', 'columns', 'veranda']
+            },
+            'contemporary': {
+                'description': 'Modern Indian fusion style',
+                'materials': ['concrete', 'glass', 'wood'],
+                'colors': ['white', 'beige', 'brown'],
+                'features': ['clean_lines', 'large_windows', 'garden']
+            }
+        }
+        
+        self.house_types = {
+            'villa': {'floors': [2, 3], 'size': 'large', 'luxury': 'high'},
+            'cottage': {'floors': [1, 2], 'size': 'small', 'luxury': 'medium'},
+            'mansion': {'floors': [3, 4], 'size': 'very_large', 'luxury': 'very_high'},
+            'apartment': {'floors': [1], 'size': 'medium', 'luxury': 'medium'},
+            'bungalow': {'floors': [1, 2], 'size': 'large', 'luxury': 'high'},
+            'duplex': {'floors': [2], 'size': 'medium', 'luxury': 'medium'},
+            'penthouse': {'floors': [1], 'size': 'large', 'luxury': 'very_high'},
+            'farmhouse': {'floors': [1, 2], 'size': 'large', 'luxury': 'medium'},
+            'townhouse': {'floors': [2, 3], 'size': 'medium', 'luxury': 'medium'}
+        }
+        
+        self.room_types = [
+            'bedroom', 'living_room', 'kitchen', 'bathroom', 'dining_room',
+            'study_room', 'guest_room', 'master_bedroom', 'balcony', 'terrace',
+            'garage', 'store_room', 'prayer_room', 'garden'
+        ]
+        
+        self.features = [
+            'swimming_pool', 'garden', 'parking', 'security', 'elevator',
+            'air_conditioning', 'solar_panels', 'water_tank', 'compound_wall',
+            'gate', 'intercom', 'cctv', 'inverter', 'generator'
+        ]
+        
+        self.colors = [
+            'white', 'cream', 'beige', 'brown', 'red', 'blue', 'green',
+            'yellow', 'orange', 'pink', 'grey', 'black', 'golden', 'silver'
+        ]
+        
+        self.materials = [
+            'brick', 'concrete', 'stone', 'wood', 'glass', 'steel',
+            'marble', 'granite', 'tile', 'plaster', 'bamboo', 'laterite'
+        ]
+
+    def parse_text_description(self, description):
+        """Parse text description and extract house attributes"""
+        description = description.lower()
+        
+        # Extract style
+        detected_style = 'modern'  # default
+        for style in self.architectural_styles.keys():
+            if style in description or any(keyword in description for keyword in self.architectural_styles[style]['features']):
+                detected_style = style
+                break
+        
+        # Extract house type
+        detected_type = 'villa'  # default
+        for house_type in self.house_types.keys():
+            if house_type in description:
+                detected_type = house_type
+                break
+        
+        # Extract floors
+        floors = 2  # default
+        floor_patterns = [
+            r'(\d+)\s*(floor|story|storey)',
+            r'(single|one)\s*(floor|story|storey)',
+            r'(double|two)\s*(floor|story|storey)',
+            r'(triple|three)\s*(floor|story|storey)'
+        ]
+        
+        for pattern in floor_patterns:
+            match = re.search(pattern, description)
+            if match:
+                floor_text = match.group(1)
+                if floor_text in ['single', 'one']:
+                    floors = 1
+                elif floor_text in ['double', 'two']:
+                    floors = 2
+                elif floor_text in ['triple', 'three']:
+                    floors = 3
+                else:
+                    try:
+                        floors = int(floor_text)
+                    except:
+                        pass
+                break
+        
+        # Extract colors
+        detected_colors = []
+        for color in self.colors:
+            if color in description:
+                detected_colors.append(color)
+        if not detected_colors:
+            detected_colors = ['white', 'cream']  # default
+        
+        # Extract materials
+        detected_materials = []
+        for material in self.materials:
+            if material in description:
+                detected_materials.append(material)
+        if not detected_materials:
+            detected_materials = self.architectural_styles[detected_style]['materials']
+        
+        # Extract rooms
+        detected_rooms = []
+        for room in self.room_types:
+            if room.replace('_', ' ') in description or room in description:
+                detected_rooms.append(room)
+        if not detected_rooms:
+            detected_rooms = ['living_room', 'bedroom', 'kitchen', 'bathroom']  # default
+        
+        # Extract features
+        detected_features = []
+        for feature in self.features:
+            if feature.replace('_', ' ') in description or feature in description:
+                detected_features.append(feature)
+        
+        return {
+            'style': detected_style,
+            'type': detected_type,
+            'floors': floors,
+            'colors': detected_colors,
+            'materials': detected_materials,
+            'rooms': detected_rooms,
+            'features': detected_features,
+            'size': self.house_types[detected_type]['size'],
+            'luxury_level': self.house_types[detected_type]['luxury']
+        }
+
+    def generate_3d_model_data(self, attributes):
+        """Generate proper 3D model data for visualization"""
+        import random
+        
+        # Make size actually affect dimensions significantly
+        size_multipliers = {
+            'small': 0.6, 'medium': 1.0, 'large': 1.4, 'very_large': 1.8
+        }
+        multiplier = size_multipliers.get(attributes['size'], 1.0)
+        
+        # Base dimensions that actually vary
+        base_width = random.randint(6, 10) * multiplier
+        base_length = random.randint(8, 12) * multiplier
+        floor_height = 3.0 + random.random() * 1.0  # 3-4 meters
+        total_height = attributes['floors'] * floor_height
+        
+        # Style affects house shape significantly
+        style = attributes['style']
+        objects = []
+        
+        # Main building - varies by style
+        if style == 'modern':
+            # Modern: Multiple rectangular blocks
+            main_color = self._get_color_hex(attributes['colors'][0]) if attributes['colors'] else '#F0F0F0'
+            
+            # Main block
+            objects.append({
+                'type': 'box',
+                'dimensions': {'width': base_width, 'height': total_height, 'depth': base_length},
+                'position': {'x': 0, 'y': total_height/2, 'z': 0},
+                'material': 'wall',
+                'color': main_color
+            })
+            
+            # Additional modern block
+            if attributes['floors'] > 1:
+                objects.append({
+                    'type': 'box',
+                    'dimensions': {'width': base_width*0.7, 'height': floor_height, 'depth': base_length*0.6},
+                    'position': {'x': base_width*0.3, 'y': total_height + floor_height/2, 'z': 0},
+                    'material': 'wall',
+                    'color': main_color
+                })
+                
+        elif style == 'traditional' or style == 'kerala':
+            # Traditional: Single main structure with sloped roof
+            main_color = self._get_color_hex(attributes['colors'][0]) if attributes['colors'] else '#D2B48C'
+            
+            objects.append({
+                'type': 'box',
+                'dimensions': {'width': base_width, 'height': total_height, 'depth': base_length},
+                'position': {'x': 0, 'y': total_height/2, 'z': 0},
+                'material': 'wall',
+                'color': main_color
+            })
+            
+        elif style == 'rajasthani':
+            # Rajasthani: Multiple levels with domes
+            main_color = '#F4A460'  # Sandy brown
+            
+            # Main structure
+            objects.append({
+                'type': 'box',
+                'dimensions': {'width': base_width, 'height': total_height*0.7, 'depth': base_length},
+                'position': {'x': 0, 'y': total_height*0.35, 'z': 0},
+                'material': 'wall',
+                'color': main_color
+            })
+            
+            # Upper level
+            objects.append({
+                'type': 'box',
+                'dimensions': {'width': base_width*0.8, 'height': total_height*0.3, 'depth': base_length*0.8},
+                'position': {'x': 0, 'y': total_height*0.85, 'z': 0},
+                'material': 'wall',
+                'color': main_color
+            })
+            
+            # Dome
+            objects.append({
+                'type': 'sphere',
+                'radius': base_width*0.2,
+                'position': {'x': 0, 'y': total_height + base_width*0.2, 'z': 0},
+                'material': 'dome',
+                'color': '#DAA520'
+            })
+            
+        # Roof based on style
+        if style != 'rajasthani':  # Rajasthani has dome instead
+            if style == 'modern':
+                # Flat roof
+                objects.append({
+                    'type': 'box',
+                    'dimensions': {'width': base_width + 0.5, 'height': 0.3, 'depth': base_length + 0.5},
+                    'position': {'x': 0, 'y': total_height + 0.15, 'z': 0},
+                    'material': 'roof_modern',
+                    'color': '#708090'
+                })
+            else:
+                # Sloped roof
+                objects.append({
+                    'type': 'pyramid',
+                    'radius': max(base_width, base_length) * 0.7,
+                    'height': 2.5,
+                    'position': {'x': 0, 'y': total_height + 1.25, 'z': 0},
+                    'material': 'roof_traditional',
+                    'color': '#DC143C' if style == 'traditional' else '#8B4513'
+                })
+        
+        # Windows - number varies by size and floors
+        windows_per_floor = min(int(base_width / 3), 4)
+        window_size = 1.2
+        
+        for floor in range(attributes['floors']):
+            floor_y = floor * floor_height + floor_height * 0.6
+            
+            # Front windows
+            for i in range(windows_per_floor):
+                x_pos = -base_width/2 + (i + 1) * base_width/(windows_per_floor + 1)
+                objects.append({
+                    'type': 'box',
+                    'dimensions': {'width': window_size, 'height': window_size, 'depth': 0.1},
+                    'position': {'x': x_pos, 'y': floor_y, 'z': base_length/2 + 0.05},
+                    'material': 'window',
+                    'color': '#87CEEB'
+                })
+        
+        # Door
+        door_width = 1.0 + random.random() * 0.5
+        door_height = 2.0 + random.random() * 0.5
+        objects.append({
+            'type': 'box',
+            'dimensions': {'width': door_width, 'height': door_height, 'depth': 0.1},
+            'position': {'x': 0, 'y': door_height/2, 'z': base_length/2 + 0.05},
+            'material': 'door',
+            'color': '#8B4513'
+        })
+        
+        # Features - actually add them based on attributes
+        if 'garden' in attributes['features']:
+            # Add trees around house
+            for i in range(random.randint(2, 5)):
+                x = random.uniform(-base_width*1.5, base_width*1.5)
+                z = random.uniform(-base_length*1.5, base_length*1.5)
+                # Don't place trees too close to house
+                if abs(x) > base_width/2 + 2 and abs(z) > base_length/2 + 2:
+                    objects.append({
+                        'type': 'cylinder',
+                        'radiusTop': 0.3,
+                        'radiusBottom': 0.3,
+                        'height': 4,
+                        'position': {'x': x, 'y': 2, 'z': z},
+                        'material': 'tree',
+                        'color': '#228B22'
+                    })
+        
+        if 'swimming_pool' in attributes['features']:
+            # Add swimming pool
+            objects.append({
+                'type': 'box',
+                'dimensions': {'width': 6, 'height': 0.5, 'depth': 4},
+                'position': {'x': base_width + 4, 'y': -0.25, 'z': 0},
+                'material': 'window',  # Use transparent material
+                'color': '#0080FF'
+            })
+        
+        if 'parking' in attributes['features']:
+            # Add garage
+            objects.append({
+                'type': 'box',
+                'dimensions': {'width': 4, 'height': 3, 'depth': 6},
+                'position': {'x': -base_width/2 - 2, 'y': 1.5, 'z': base_length/2 - 1},
+                'material': 'wall',
+                'color': '#C0C0C0'
+            })
+        
+        # House type affects overall structure
+        house_type = attributes.get('house_type', 'villa')
+        if house_type == 'bungalow':
+            # Single floor, wider
+            for obj in objects:
+                if obj['type'] == 'box' and 'height' in obj['dimensions']:
+                    obj['dimensions']['height'] = min(obj['dimensions']['height'], 4)
+                    obj['dimensions']['width'] *= 1.2
+                    obj['dimensions']['depth'] *= 1.2
+        elif house_type == 'tower':
+            # Taller, narrower
+            for obj in objects:
+                if obj['type'] == 'box' and 'height' in obj['dimensions']:
+                    obj['dimensions']['height'] *= 1.5
+                    obj['dimensions']['width'] *= 0.8
+                    obj['dimensions']['depth'] *= 0.8
+        
+        return {
+            'type': 'house_model',
+            'style': style,
+            'attributes': attributes,
+            'objects': objects,
+            'metadata': {
+                'total_objects': len(objects),
+                'base_dimensions': f"{base_width:.1f}x{base_length:.1f}x{total_height:.1f}",
+                'generation_strategy': 'attribute_based_variation'
+            }
+        }
+                    'dimensions': {'width': window_size, 'height': window_size},
+                    'position': {'x': x_pos, 'y': floor_y, 'z': base_length/2 + 0.1},
+                    'material': {
+                        'type': 'phong',
+                        'color': '#87CEEB',
+                        'transparent': True,
+                        'opacity': 0.7
+                    }
+                })
+        
+        # Generate door
+        door = {
+            'type': 'door',
+            'geometry': 'plane',
+            'dimensions': {'width': 1.2, 'height': 2.5},
+            'position': {'x': 0, 'y': 1.25, 'z': base_length/2 + 0.1},
+            'material': {
+                'type': 'phong',
+                'color': '#8B4513',
+                'roughness': 0.8
+            }
+        }
+        
+        # Generate additional features based on attributes
+        additional_objects = []
+        
+        # Add balcony if mentioned
+        if 'balcony' in attributes['features'] or 'balcony' in attributes['rooms']:
+            balcony = {
+                'type': 'balcony',
+                'geometry': 'box',
+                'dimensions': {'width': 4, 'length': 2, 'height': 0.2},
+                'position': {'x': 0, 'y': floor_height + 0.1, 'z': base_length/2 + 1},
+                'material': {
+                    'type': 'phong',
+                    'color': main_building['material']['color'],
+                    'roughness': 0.8
+                }
+            }
+            additional_objects.append(balcony)
+        
+        # Add garden if mentioned
+        if 'garden' in attributes['features'] or 'garden' in attributes['rooms']:
+            garden = {
+                'type': 'garden',
+                'geometry': 'cylinder',
+                'dimensions': {'radius': 3, 'height': 0.1},
+                'position': {'x': base_width/2 + 4, 'y': 0.05, 'z': 0},
+                'material': {
+                    'type': 'phong',
+                    'color': '#228B22',
+                    'roughness': 1.0
+                }
+            }
+            additional_objects.append(garden)
+        
+        # Add swimming pool if mentioned
+        if 'swimming_pool' in attributes['features']:
+            pool = {
+                'type': 'swimming_pool',
+                'geometry': 'box',
+                'dimensions': {'width': 6, 'length': 4, 'height': 0.5},
+                'position': {'x': -base_width/2 - 5, 'y': 0.25, 'z': 0},
+                'material': {
+                    'type': 'phong',
+                    'color': '#0077BE',
+                    'transparent': True,
+                    'opacity': 0.8
+                }
+            }
+            additional_objects.append(pool)
+        
+        # Combine all objects
+        model_data = {
+            'main_building': main_building,
+            'roof': roof,
+            'windows': windows,
+            'door': door,
+            'additional_objects': additional_objects,
+            'lighting': {
+                'ambient': {'color': '#FFFFFF', 'intensity': 0.6},
+                'directional': {
+                    'color': '#FFFFFF',
+                    'intensity': 0.8,
+                    'position': {'x': 10, 'y': 10, 'z': 10}
+                }
+            },
+            'camera': {
+                'position': {'x': 20, 'y': 15, 'z': 20},
+                'target': {'x': 0, 'y': 5, 'z': 0}
+            }
+        }
+        
+        return model_data
+
+    def _get_color_hex(self, color_name):
+        """Convert color name to hex"""
+        color_map = {
+            'white': '#FFFFFF', 'cream': '#F5F5DC', 'beige': '#F5F5DC',
+            'brown': '#8B4513', 'red': '#DC143C', 'blue': '#0077BE',
+            'green': '#228B22', 'yellow': '#FFD700', 'orange': '#FF8C00',
+            'pink': '#FFC0CB', 'grey': '#808080', 'gray': '#808080',
+            'black': '#2F2F2F', 'golden': '#FFD700', 'silver': '#C0C0C0'
+        }
+        return color_map.get(color_name.lower(), '#FFFFFF')
+
+    def generate_house(self, description):
+        """Main function to generate house from description"""
+        try:
+            logger.info(f"Generating house for: {description}")
+            
+            # Parse the description
+            attributes = self.parse_text_description(description)
+            logger.info(f"Parsed attributes: {attributes}")
+            
+            # Generate 3D model data
+            model_data = self.generate_3d_model_data(attributes)
+            
+            # Create timestamp for unique identification
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            
+            # Save model data to file
+            output_file = f"output/house_{timestamp}_3d.json"
+            with open(output_file, 'w') as f:
+                json.dump(model_data, f, indent=2)
+            
+            # Save metadata
+            metadata = {
+                'timestamp': timestamp,
+                'description': description,
+                'attributes': attributes,
+                'model_file': output_file,
+                'generated_at': datetime.now().isoformat()
+            }
+            
+            metadata_file = f"output/house_{timestamp}_metadata.json"
+            with open(metadata_file, 'w') as f:
+                json.dump(metadata, f, indent=2)
+            
+            logger.info(f"House generated successfully: {output_file}")
+            
+            return {
+                'success': True,
+                'model_data': model_data,
+                'attributes': attributes,
+                'metadata': metadata,
+                'files': {
+                    'model': output_file,
+                    'metadata': metadata_file
+                }
+            }
+            
+        except Exception as e:
+            logger.error(f"Error generating house: {str(e)}")
+            return {
+                'success': False,
+                'error': str(e)
+            }
+
+# Initialize the generator
+house_generator = ProperHouseGenerator()
+
+@app.route('/health', methods=['GET'])
+def health_check():
+    """Health check endpoint"""
+    return jsonify({
+        'status': 'healthy',
+        'service': 'Aakar3D ML Service',
+        'version': '2.0',
+        'timestamp': datetime.now().isoformat()
+    })
+
+@app.route('/generate', methods=['POST'])
+def generate_house():
+    """Generate house from text description"""
+    try:
+        data = request.get_json()
+        description = data.get('description', '')
+        
+        if not description:
+            return jsonify({
+                'success': False,
+                'error': 'Description is required'
+            }), 400
+        
+        result = house_generator.generate_house(description)
+        
+        if result['success']:
+            return jsonify({
+                'success': True,
+                'data': {
+                    'text': description,
+                    'attributes': result['attributes'],
+                    'model_data': result['model_data'],
+                    'metadata': result['metadata']
+                }
+            })
+        else:
+            return jsonify({
+                'success': False,
+                'error': result['error']
+            }), 500
+            
+    except Exception as e:
+        logger.error(f"Generation error: {str(e)}")
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
+@app.route('/generate_house_from_form', methods=['POST'])
+def generate_house_from_form():
+    """Generate house from form data"""
+    try:
+        form_data = request.get_json()
+        
+        # Convert form data to description
+        description_parts = []
+        
+        if form_data.get('style'):
+            description_parts.append(f"{form_data['style']} style")
+        
+        if form_data.get('type'):
+            description_parts.append(f"{form_data['type']}")
+        
+        if form_data.get('floors'):
+            description_parts.append(f"{form_data['floors']} floors")
+        
+        if form_data.get('colors'):
+            colors = ', '.join(form_data['colors'])
+            description_parts.append(f"with {colors} colors")
+        
+        if form_data.get('rooms'):
+            rooms = ', '.join(form_data['rooms'])
+            description_parts.append(f"having {rooms}")
+        
+        if form_data.get('features'):
+            features = ', '.join(form_data['features'])
+            description_parts.append(f"with {features}")
+        
+        description = ' '.join(description_parts)
+        
+        logger.info(f"Form data converted to description: {description}")
+        
+        result = house_generator.generate_house(description)
+        
+        if result['success']:
+            return jsonify({
+                'success': True,
+                'data': {
+                    'text': description,
+                    'form_data': form_data,
+                    'attributes': result['attributes'],
+                    'model_data': result['model_data'],
+                    'metadata': result['metadata']
+                }
+            })
+        else:
+            return jsonify({
+                'success': False,
+                'error': result['error']
+            }), 500
+            
+    except Exception as e:
+        logger.error(f"Form generation error: {str(e)}")
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
+@app.route('/config_options', methods=['GET'])
+def get_config_options():
+    """Get configuration options for the form"""
+    return jsonify({
+        'styles': list(house_generator.architectural_styles.keys()),
+        'types': list(house_generator.house_types.keys()),
+        'rooms': house_generator.room_types,
+        'features': house_generator.features,
+        'colors': house_generator.colors,
+        'materials': house_generator.materials
+    })
+
+@app.route('/examples', methods=['GET'])
+def get_examples():
+    """Get example house descriptions"""
+    examples = [
+        {
+            'id': 1,
+            'title': 'Traditional Kerala House',
+            'description': 'A traditional Kerala house with 2 floors, wooden balcony, and red tile roof',
+            'image': '/api/placeholder/300/200'
+        },
+        {
+            'id': 2,
+            'title': 'Modern Glass Villa',
+            'description': 'A modern glass villa with 3 floors, swimming pool, and garden',
+            'image': '/api/placeholder/300/200'
+        },
+        {
+            'id': 3,
+            'title': 'Rajasthani Haveli',
+            'description': 'A royal Rajasthani haveli with courtyard, domes, and sandstone walls',
+            'image': '/api/placeholder/300/200'
+        },
+        {
+            'id': 4,
+            'title': 'Simple Cottage',
+            'description': 'A small cottage with garden, single floor, and wooden doors',
+            'image': '/api/placeholder/300/200'
+        }
+    ]
+    
+    return jsonify({
+        'success': True,
+        'examples': examples
+    })
+
+if __name__ == '__main__':
+    print("\n" + "="*70)
+    print("🏛️  AAKAR3D PROPER ML HOUSE GENERATOR")
+    print("="*70)
+    print("🌐 Starting server on http://localhost:5001")
+    print("📚 Available endpoints:")
+    print("  GET  /health              - Health check")
+    print("  POST /generate            - Generate house from text")
+    print("  POST /generate_house_from_form - Generate from form data")
+    print("  GET  /config_options      - Get configuration options")
+    print("  GET  /examples            - Get example descriptions")
+    print("="*70)
+    print("")
+    
+    app.run(host='0.0.0.0', port=5001, debug=True)

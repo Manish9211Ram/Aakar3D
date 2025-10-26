@@ -1,0 +1,32 @@
+# Advanced ML Requirements for Real 3D Model Generation
+flask==2.3.3
+flask-cors==4.0.0
+numpy==1.24.3
+pandas==2.0.3
+scikit-learn==1.3.0
+matplotlib==3.7.2
+Pillow==10.0.0
+
+# 3D Model Generation
+open3d==0.17.0
+trimesh==3.23.5
+pymeshlab==2022.2.post4
+scipy==1.11.2
+
+# Deep Learning (Optional - for future training)
+torch==2.0.1
+torchvision==0.15.2
+transformers==4.33.2
+
+# Text Processing
+nltk==3.8.1
+spacy==3.6.1
+sentence-transformers==2.2.2
+
+# 3D File Formats
+pygltflib==1.15.1
+pywavefront==1.3.3
+
+# Geometry Processing
+shapely==2.0.1
+rtree==1.0.1

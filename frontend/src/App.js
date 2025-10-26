@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import HeroSection from './components/HeroSection';
-import Dashboard from './components/Dashboard';
+import AakarDashboard from './components/AakarDashboard';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import authService from './services/authService';
@@ -20,7 +20,8 @@ function App() {
           const result = await authService.getProfile();
           if (result.success) {
             setUser(result.user);
-            setCurrentView('dashboard'); // Redirect to dashboard if already logged in
+            // Keep currentView as 'home' instead of auto-redirecting to dashboard
+            // User can manually navigate to dashboard via navbar
           } else {
             // Token might be expired, clear it
             authService.logout();
@@ -42,10 +43,6 @@ function App() {
 
   const handleSignup = () => {
     setCurrentView('signup');
-  };
-
-  const handleBackToHome = () => {
-    setCurrentView('home');
   };
 
   const handleLoginSuccess = (userData) => {
@@ -107,7 +104,7 @@ function App() {
   // Render dashboard if user is logged in
   if (currentView === 'dashboard' && user) {
     return (
-      <Dashboard 
+      <AakarDashboard 
         user={user}
         onLogout={handleLogout}
       />

@@ -1,0 +1,26 @@
+{
+  "timestamp": "20251026_051104",
+  "description": "generate a bedroom inside structure with 2 window and 1 door with 1 side red colour ,1 side blue colur,",
+  "attributes": {
+    "style": "modern",
+    "type": "villa",
+    "floors": 2,
+    "colors": [
+      "red",
+      "blue"
+    ],
+    "materials": [
+      "glass",
+      "steel",
+      "concrete"
+    ],
+    "rooms": [
+      "bedroom"
+    ],
+    "features": [],
+    "size": "large",
+    "luxury_level": "high"
+  },
+  "model_file": "output/house_20251026_051104_3d.json",
+  "generated_at": "2025-10-26T05:11:04.069003"
+}

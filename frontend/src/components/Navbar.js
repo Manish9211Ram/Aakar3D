@@ -38,7 +38,7 @@ const Navbar = ({ user, onLogin, onSignup, onLogout }) => {
           ) : (
             <>
               <button className="btn btn-login" onClick={onLogin}>LOGIN</button>
-              <button className="btn btn-signin" onClick={onSignup}>SIGNUP</button>
+              <button className="btn btn-signin" onClick={onSignup}>SIGN UP</button>
             </>
           )}
         </div>

@@ -76,9 +76,18 @@ const Login = ({ onSwitchToSignup, onLoginSuccess }) => {
   return (
     <div className="auth-page">
       <div className="auth-container">
+        {/* Logo Section */}
+        <div className="auth-logo-section">
+          <div className="auth-logo">
+            <img src="/aakar3d-logo.png" alt="Aakar3D Logo" />
+          </div>
+          <h1 className="auth-brand-title">Aakar 3D</h1>
+          <p className="auth-brand-subtitle">Build • Create • Innovate</p>
+        </div>
+
         <div className="auth-header">
           <h1>Welcome Back</h1>
-          <p>Login to your Aakar3D account</p>
+          <p>Login to your Aakar3D account and continue building</p>
         </div>
 
         {error && (

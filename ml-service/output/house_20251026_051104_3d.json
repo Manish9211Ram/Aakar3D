@@ -1,0 +1,203 @@
+{
+  "main_building": {
+    "type": "building",
+    "geometry": "box",
+    "dimensions": {
+      "width": 16,
+      "length": 18,
+      "height": 7.0
+    },
+    "position": {
+      "x": 0,
+      "y": 3.5,
+      "z": 0
+    },
+    "material": {
+      "type": "phong",
+      "color": "#DC143C",
+      "roughness": 0.8,
+      "metalness": 0.1
+    }
+  },
+  "roof": {
+    "type": "roof",
+    "geometry": "box",
+    "dimensions": {
+      "width": 17,
+      "length": 19,
+      "height": 2
+    },
+    "position": {
+      "x": 0,
+      "y": 8.0,
+      "z": 0
+    },
+    "material": {
+      "type": "phong",
+      "color": "#DC143C",
+      "roughness": 0.9
+    }
+  },
+  "windows": [
+    {
+      "type": "window",
+      "geometry": "plane",
+      "dimensions": {
+        "width": 1.5,
+        "height": 1.5
+      },
+      "position": {
+        "x": -4.0,
+        "y": 1.75,
+        "z": 9.1
+      },
+      "material": {
+        "type": "phong",
+        "color": "#87CEEB",
+        "transparent": true,
+        "opacity": 0.7
+      }
+    },
+    {
+      "type": "window",
+      "geometry": "plane",
+      "dimensions": {
+        "width": 1.5,
+        "height": 1.5
+      },
+      "position": {
+        "x": 0.0,
+        "y": 1.75,
+        "z": 9.1
+      },
+      "material": {
+        "type": "phong",
+        "color": "#87CEEB",
+        "transparent": true,
+        "opacity": 0.7
+      }
+    },
+    {
+      "type": "window",
+      "geometry": "plane",
+      "dimensions": {
+        "width": 1.5,
+        "height": 1.5
+      },
+      "position": {
+        "x": 4.0,
+        "y": 1.75,
+        "z": 9.1
+      },
+      "material": {
+        "type": "phong",
+        "color": "#87CEEB",
+        "transparent": true,
+        "opacity": 0.7
+      }
+    },
+    {
+      "type": "window",
+      "geometry": "plane",
+      "dimensions": {
+        "width": 1.5,
+        "height": 1.5
+      },
+      "position": {
+        "x": -4.0,
+        "y": 5.25,
+        "z": 9.1
+      },
+      "material": {
+        "type": "phong",
+        "color": "#87CEEB",
+        "transparent": true,
+        "opacity": 0.7
+      }
+    },
+    {
+      "type": "window",
+      "geometry": "plane",
+      "dimensions": {
+        "width": 1.5,
+        "height": 1.5
+      },
+      "position": {
+        "x": 0.0,
+        "y": 5.25,
+        "z": 9.1
+      },
+      "material": {
+        "type": "phong",
+        "color": "#87CEEB",
+        "transparent": true,
+        "opacity": 0.7
+      }
+    },
+    {
+      "type": "window",
+      "geometry": "plane",
+      "dimensions": {
+        "width": 1.5,
+        "height": 1.5
+      },
+      "position": {
+        "x": 4.0,
+        "y": 5.25,
+        "z": 9.1
+      },
+      "material": {
+        "type": "phong",
+        "color": "#87CEEB",
+        "transparent": true,
+        "opacity": 0.7
+      }
+    }
+  ],
+  "door": {
+    "type": "door",
+    "geometry": "plane",
+    "dimensions": {
+      "width": 1.2,
+      "height": 2.5
+    },
+    "position": {
+      "x": 0,
+      "y": 1.25,
+      "z": 9.1
+    },
+    "material": {
+      "type": "phong",
+      "color": "#8B4513",
+      "roughness": 0.8
+    }
+  },
+  "additional_objects": [],
+  "lighting": {
+    "ambient": {
+      "color": "#FFFFFF",
+      "intensity": 0.6
+    },
+    "directional": {
+      "color": "#FFFFFF",
+      "intensity": 0.8,
+      "position": {
+        "x": 10,
+        "y": 10,
+        "z": 10
+      }
+    }
+  },
+  "camera": {
+    "position": {
+      "x": 20,
+      "y": 15,
+      "z": 20
+    },
+    "target": {
+      "x": 0,
+      "y": 5,
+      "z": 0
+    }
+  }
+}
