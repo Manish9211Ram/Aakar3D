@@ -1,0 +1,29 @@
+{
+  "timestamp": "20251026_050955",
+  "description": "generate a house \n",
+  "attributes": {
+    "style": "modern",
+    "type": "villa",
+    "floors": 2,
+    "colors": [
+      "white",
+      "cream"
+    ],
+    "materials": [
+      "glass",
+      "steel",
+      "concrete"
+    ],
+    "rooms": [
+      "living_room",
+      "bedroom",
+      "kitchen",
+      "bathroom"
+    ],
+    "features": [],
+    "size": "large",
+    "luxury_level": "high"
+  },
+  "model_file": "output/house_20251026_050955_3d.json",
+  "generated_at": "2025-10-26T05:09:55.321652"
+}

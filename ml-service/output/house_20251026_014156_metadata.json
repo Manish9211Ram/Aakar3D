@@ -1,0 +1,29 @@
+{
+  "description": "generate a house model",
+  "attributes": {
+    "text": "generate a house model",
+    "num_floors": 2,
+    "style": "modern",
+    "house_type": "bungalow",
+    "rooms": [
+      "living_room",
+      "bedroom",
+      "kitchen",
+      "bathroom"
+    ],
+    "features": [],
+    "dimensions": {
+      "width": 10.0,
+      "length": 12.0,
+      "height": 3.0
+    },
+    "colors": [
+      "white"
+    ]
+  },
+  "generated_at": "2025-10-26T01:41:56.432522",
+  "files": {
+    "script": "house_20251026_014156_script.py",
+    "blend": "house_20251026_014156.blend"
+  }
+}

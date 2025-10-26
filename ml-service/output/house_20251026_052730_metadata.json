@@ -1,0 +1,18 @@
+{
+  "timestamp": "20251026_052730",
+  "description": "modern style bungalow 2 floors with white colors",
+  "attributes": {
+    "style": "modern",
+    "house_type": "bungalow",
+    "floors": 2,
+    "size": "medium",
+    "colors": [
+      "white"
+    ],
+    "rooms": [],
+    "features": [],
+    "original_description": "modern style bungalow 2 floors with white colors"
+  },
+  "model_file": "output/house_20251026_052730_3d.json",
+  "generated_at": "2025-10-26T05:27:30.981908"
+}

@@ -1,0 +1,23 @@
+{
+  "timestamp": "20251026_052743",
+  "description": "A modern glass villa with 3 floors, swimming pool, and garden",
+  "attributes": {
+    "style": "modern",
+    "house_type": "villa",
+    "floors": 3,
+    "size": "medium",
+    "colors": [
+      "white"
+    ],
+    "rooms": [
+      "garden"
+    ],
+    "features": [
+      "swimming_pool",
+      "garden"
+    ],
+    "original_description": "A modern glass villa with 3 floors, swimming pool, and garden"
+  },
+  "model_file": "output/house_20251026_052743_3d.json",
+  "generated_at": "2025-10-26T05:27:43.135876"
+}

@@ -1,0 +1,22 @@
+{
+  "timestamp": "20251026_052654",
+  "description": "A traditional Kerala house with 2 floors, wooden balcony, and red tile roof",
+  "attributes": {
+    "style": "traditional",
+    "house_type": "villa",
+    "floors": 2,
+    "size": "medium",
+    "colors": [
+      "red"
+    ],
+    "rooms": [
+      "balcony"
+    ],
+    "features": [
+      "balcony"
+    ],
+    "original_description": "A traditional Kerala house with 2 floors, wooden balcony, and red tile roof"
+  },
+  "model_file": "output/house_20251026_052654_3d.json",
+  "generated_at": "2025-10-26T05:26:54.468727"
+}

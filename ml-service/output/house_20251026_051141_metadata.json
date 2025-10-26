@@ -1,0 +1,26 @@
+{
+  "timestamp": "20251026_051141",
+  "description": "generate a 3d model for my bedroom with 2 window ",
+  "attributes": {
+    "style": "modern",
+    "type": "villa",
+    "floors": 2,
+    "colors": [
+      "white",
+      "cream"
+    ],
+    "materials": [
+      "glass",
+      "steel",
+      "concrete"
+    ],
+    "rooms": [
+      "bedroom"
+    ],
+    "features": [],
+    "size": "large",
+    "luxury_level": "high"
+  },
+  "model_file": "output/house_20251026_051141_3d.json",
+  "generated_at": "2025-10-26T05:11:41.295334"
+}

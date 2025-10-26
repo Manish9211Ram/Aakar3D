@@ -1,0 +1,207 @@
+{
+  "objects": [
+    {
+      "name": "Foundation",
+      "type": "box",
+      "position": [
+        0,
+        0,
+        0.1
+      ],
+      "scale": [
+        5,
+        6,
+        0.1
+      ],
+      "color": "#8B4513",
+      "material": "foundation"
+    },
+    {
+      "name": "Floor_1",
+      "type": "box",
+      "position": [
+        0,
+        0,
+        0.5
+      ],
+      "scale": [
+        4.5,
+        5.5,
+        1.5
+      ],
+      "color": "#D2B48C",
+      "material": "wall"
+    },
+    {
+      "name": "Floor_2",
+      "type": "box",
+      "position": [
+        0,
+        0,
+        3.5
+      ],
+      "scale": [
+        4.5,
+        5.5,
+        1.5
+      ],
+      "color": "#D2B48C",
+      "material": "wall"
+    },
+    {
+      "name": "Roof",
+      "type": "box",
+      "position": [
+        0,
+        0,
+        6.2
+      ],
+      "scale": [
+        4.8,
+        5.8,
+        0.2
+      ],
+      "color": "#708090",
+      "material": "roof_modern"
+    },
+    {
+      "name": "Window_0_0",
+      "type": "box",
+      "position": [
+        4.6,
+        -3,
+        1
+      ],
+      "scale": [
+        0.1,
+        0.8,
+        1.2
+      ],
+      "color": "#87CEEB",
+      "material": "window"
+    },
+    {
+      "name": "Window_0_1",
+      "type": "box",
+      "position": [
+        4.6,
+        -1,
+        1
+      ],
+      "scale": [
+        0.1,
+        0.8,
+        1.2
+      ],
+      "color": "#87CEEB",
+      "material": "window"
+    },
+    {
+      "name": "Window_0_2",
+      "type": "box",
+      "position": [
+        4.6,
+        1,
+        1
+      ],
+      "scale": [
+        0.1,
+        0.8,
+        1.2
+      ],
+      "color": "#87CEEB",
+      "material": "window"
+    },
+    {
+      "name": "Window_1_0",
+      "type": "box",
+      "position": [
+        4.6,
+        -3,
+        4
+      ],
+      "scale": [
+        0.1,
+        0.8,
+        1.2
+      ],
+      "color": "#87CEEB",
+      "material": "window"
+    },
+    {
+      "name": "Window_1_1",
+      "type": "box",
+      "position": [
+        4.6,
+        -1,
+        4
+      ],
+      "scale": [
+        0.1,
+        0.8,
+        1.2
+      ],
+      "color": "#87CEEB",
+      "material": "window"
+    },
+    {
+      "name": "Window_1_2",
+      "type": "box",
+      "position": [
+        4.6,
+        1,
+        4
+      ],
+      "scale": [
+        0.1,
+        0.8,
+        1.2
+      ],
+      "color": "#87CEEB",
+      "material": "window"
+    },
+    {
+      "name": "Main_Door",
+      "type": "box",
+      "position": [
+        4.6,
+        0,
+        1
+      ],
+      "scale": [
+        0.1,
+        0.8,
+        2
+      ],
+      "color": "#8B4513",
+      "material": "door"
+    }
+  ],
+  "camera": {
+    "position": [
+      15,
+      -15,
+      10
+    ],
+    "target": [
+      0,
+      0,
+      3
+    ]
+  },
+  "lighting": {
+    "sun": {
+      "position": [
+        10,
+        10,
+        20
+      ],
+      "intensity": 1.0
+    }
+  },
+  "metadata": {
+    "style": "modern",
+    "floors": 2,
+    "total_objects": 11
+  }
+}
